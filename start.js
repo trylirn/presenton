@@ -173,12 +173,7 @@ const startServers = async () => {
       stdio: "inherit",
       env: process.env,
     });
-  
-    ollamaProcess.on("error", (err) => {
-      console.error("Ollama process failed to start:", err);
-    });
   }
-
 
   ollamaProcess.on("error", (err) => {
     console.error("Ollama process failed to start:", err);
@@ -195,6 +190,7 @@ const startServers = async () => {
   }
 
   const exitCode = await Promise.race(exitPromises);
+};
 
 
 // Start nginx service
