@@ -173,11 +173,11 @@ const startServers = async () => {
       stdio: "inherit",
       env: process.env,
     });
-  }
 
-  ollamaProcess.on("error", (err) => {
+    ollamaProcess.on("error", (err) => {
     console.error("Ollama process failed to start:", err);
   });
+}
 
   // Keep the Node process alive until both servers exit
   const exitPromises = [
