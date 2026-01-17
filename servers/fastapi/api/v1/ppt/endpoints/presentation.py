@@ -469,21 +469,18 @@ async def check_if_api_request_is_valid(
     if request.template not in DEFAULT_TEMPLATES:
         request.template = request.template.lower()
         if not request.template.startswith("custom-"):
-            raise HTTPException(
-                status_code=400,
-                detail="Template not found. Please use a valid template.",
-            )
+            pass  # allow fallback
+
         template_id = request.template.replace("custom-", "")
         try:
             template = await sql_session.get(TemplateModel, uuid.UUID(template_id))
             if not template:
                 raise Exception()
         except Exception:
-            raise HTTPException(
-                status_code=400,
-                detail="Template not found. Please use a valid template.",
+            print(
+                f"[Presenton] Template '{request.template}' not found, using default styling"
             )
-
+            
     return (presentation_id,)
 
 
